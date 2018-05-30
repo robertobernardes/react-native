@@ -44,8 +44,9 @@ export default class App extends Component {
   }
 }
 
+const margem = Platform.OS === 'ios' ? 20 : 0;
 const style = StyleSheet.create({
   container: { 
-    marginTop: 20 
+    marginTop: margem
   },
 });

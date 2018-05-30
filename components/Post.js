@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 
+import InputComentario from './InputComentario';
+
 const width = Dimensions.get('screen').width;
 
 export default class Post extends Component {
@@ -8,8 +10,7 @@ export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            foto: this.props.foto,
-            valorComentario: ''
+            foto: this.props.foto
         }
     }
 
@@ -62,8 +63,8 @@ export default class Post extends Component {
         );
     }
 
-    adicionaComentario() {
-        if (this.state.valorComentario === '')
+    adicionaComentario(valorComentario, inputComentario) {
+        if (valorComentario === '')
             return;
 
         const novaLista = [
@@ -71,7 +72,7 @@ export default class Post extends Component {
             {
                 id: this.state.valorComentario,
                 login: 'meuUsuario',
-                texto: this.state.valorComentario
+                texto: valorComentario
             }
         ];
 
@@ -80,12 +81,8 @@ export default class Post extends Component {
             comentarios: novaLista
         }
 
-        this.setState(
-                        {
-                            foto: fotoAtualizada,
-                            valorComentario: ''
-                        });
-        this.inputComentario.clear();
+        this.setState({foto: fotoAtualizada});
+        inputComentario.clear();
     }   
 
     render() {
@@ -119,18 +116,9 @@ export default class Post extends Component {
                         </View>
                     )}
 
-                    <View style={styles.novoComentario}>                    
-                        <TextInput style={styles.input} 
-                            placeholder="Adicione um comentário..."
-                            ref={input => this.inputComentario = input}
-                            onChangeText={texto => this.setState({valorComentario: texto})} />
-
-                        <TouchableOpacity 
-                                        onPress={this.adicionaComentario.bind(this)}> 
-                            <Image style={styles.icone}
-                                source={require('../assets/img/send.png')} />
-                        </TouchableOpacity>
-                    </View>
+                    <InputComentario 
+                        comentarioCallBack={this.adicionaComentario.bind(this)}
+                    />
                  </View>
             </View>
         );
@@ -170,19 +158,5 @@ const styles = StyleSheet.create({
     tituloComentario: {
         fontWeight: 'bold',
         marginRight: 5
-    },
-    input: {
-        flex: 1,
-        height: 40        
-    },
-    icone: {
-        width: 30,
-        height: 30
-    },
-    novoComentario: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd'
     }
   });
