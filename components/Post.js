@@ -8,35 +8,6 @@ const width = Dimensions.get('screen').width;
 
 export default class Post extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            foto: this.props.foto
-        }
-    }
-
-    like() {
-        const { foto } = this.state;
-        
-        let novaLista = [];
-        if(!foto.likeada) {
-            novaLista = [
-                ...foto.likers,
-                {login: 'meuUsuario'}
-            ];
-        } else {
-            novaLista = foto.likers.filter(liker => {
-                return liker.login !== 'meuUsuario'
-            })
-        }
-        const fotoAtualizada = {
-            ...foto,
-            likeada: !foto.likeada,
-            likers: novaLista
-        };
-        this.setState({foto: fotoAtualizada});
-    }
-
     exibeLegenda(foto) {
         if(foto.comentario == '')
             return;
@@ -49,30 +20,9 @@ export default class Post extends Component {
         );
     }
 
-    adicionaComentario(valorComentario, inputComentario) {
-        if (valorComentario === '')
-            return;
-
-        const novaLista = [
-            ...this.state.foto.comentarios, 
-            {
-                id: this.state.valorComentario,
-                login: 'meuUsuario',
-                texto: valorComentario
-            }
-        ];
-
-        const fotoAtualizada = {
-            ...this.state.foto,
-            comentarios: novaLista
-        }
-
-        this.setState({foto: fotoAtualizada});
-        inputComentario.clear();
-    }   
-
     render() {
-        const { foto } = this.state;
+        const { foto, likeCallBack, comentarioCallBack } = this.props;
+
         return (
             <View>
                 <View style={styles.cabecalho}>
@@ -86,7 +36,7 @@ export default class Post extends Component {
 
                 <View style={styles.rodape}>
 
-                    <Likes foto={foto} likeCallBack={this.like.bind(this)}/>
+                    <Likes foto={foto} likeCallBack={likeCallBack}/>
                     
                     { this.exibeLegenda(foto) }
                     
@@ -98,7 +48,8 @@ export default class Post extends Component {
                     )}
 
                     <InputComentario 
-                        comentarioCallBack={this.adicionaComentario.bind(this)}
+                        idFoto={foto.id} 
+                        comentarioCallBack={comentarioCallBack}
                     />
                  </View>
             </View>
