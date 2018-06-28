@@ -82,7 +82,7 @@ export default class App extends Component {
 
     render() {
         return (
-        <FlatList style={style.container}
+        <FlatList
             keyExtractor={item => String(item.id)}
             data={this.state.fotos}
             renderItem={({item}) =>
@@ -96,10 +96,3 @@ export default class App extends Component {
         );
     }
 }
-
-const margem = Platform.OS === 'ios' ? 20 : 0;
-const style = StyleSheet.create({
-    container: { 
-        marginTop: margem
-    },
-});

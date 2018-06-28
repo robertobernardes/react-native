@@ -11,6 +11,7 @@ import {
         AsyncStorage,
     } from 'react-native';
 
+    import { NavigationActions } from 'react-navigation';
 
 const width = Dimensions.get('screen').width;
 
@@ -50,7 +51,12 @@ export default class Login extends Component {
             AsyncStorage.setItem('token', token);
             AsyncStorage.setItem('usuario', this.state.usuario);
             
-            this.props.navigation.navigate('Second');
+            this.props.navigation.dispatch({
+                type: 'Navigation/RESET',
+                index: 0,
+                actions: [{ type: 'Navigate', routeName: 'Aplicacao' }]
+            });
+            //this.props.navigation.navigate('Aplicacao');
         })
         .catch(e => this.setState({mensagem: e.message}))
     }
