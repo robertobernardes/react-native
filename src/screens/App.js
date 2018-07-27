@@ -5,7 +5,7 @@ import {
   FlatList
 } from 'react-native';
 
-import Post from './components/Post';
+import Post from '../../components/Post';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -30,7 +30,7 @@ export default class App extends Component {
     }
 
     like(idFoto) {
-        const  foto = this.state.fotos.find(foto => foto.id === idFoto);
+        const foto = this.state.fotos.find(foto => foto.id === idFoto);
         
         let novaLista = [];
         if(!foto.likeada) {

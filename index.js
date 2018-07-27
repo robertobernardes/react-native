@@ -1,22 +1,44 @@
-
-/*
 import { AppRegistry } from 'react-native';
-import App from './App';
-import Login from './screens/Login';
-
-AppRegistry.registerComponent('InstaluraMobile', () => Login);
-*/
-import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
-import AppNavigation from './screens/AppNavigation'
+import { createStackNavigator } from 'react-navigation';
+import Aplicacao from './src/screens/App';
+import Login from './src/screens/Login';
 
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
-export default class InstaluraMobile extends Component {
-  render() {
-    return <AppNavigation/>
-  }
-}
+const AppNavigator = createStackNavigator({
+  Login: { 
+    screen: Login,
+    navigationOptions: {
+      title: "Login", 
+      headerTitleStyle: { 
+          fontFamily: "Montserrat-Regular", 
+          fontSize: 24, 
+          fontWeight: "normal", 
+          justifyContent: "center", 
+          alignSelf: "center", 
+          flex: 1,
+          textAlign: 'center'
+      }
+    }  
+  },
+  Aplicacao: { 
+    screen: Aplicacao,
+    navigationOptions: {
+      title: "Instalura",
+      headerTitleStyle: { 
+          fontFamily: "Montserrat-Regular", 
+          fontSize: 24, 
+          fontWeight: "normal", 
+          justifyContent: "center", 
+          alignSelf: "center", 
+          flex: 1,
+          textAlign: 'center'
+      }
+    }
+  },
+});
 
-AppRegistry.registerComponent('InstaluraMobile', () => InstaluraMobile);
+export default AppNavigator;
+
+AppRegistry.registerComponent('InstaluraMobile', () => AppNavigator);

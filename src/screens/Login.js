@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import { 
         View,
         Text,
-        Image,
         StyleSheet,
         Dimensions,
-        TouchableOpacity,
         TextInput,
         Button,
         AsyncStorage,
     } from 'react-native';
-
-    import { NavigationActions } from 'react-navigation';
-
+    
 const width = Dimensions.get('screen').width;
 
 export default class Login extends Component {
