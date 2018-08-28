@@ -20,8 +20,24 @@ export default class Login extends Component {
             senha: '',
             mensagem: ''
         }
-    }
 
+        //AsyncStorage.removeItem('token');
+    }
+    
+    async componentDidMount() {
+
+        AsyncStorage.getItem('token')
+        .then(token => {
+            if(token) {                
+                this.props.navigation.dispatch({
+                    type: 'Navigation/RESET',
+                    index: 0,
+                    actions: [{ type: 'Navigate', routeName: 'Aplicacao' }]
+                });
+            }
+        });        
+    }
+    
     efetuaLogin() {
         const uri = "http://instalura-api.herokuapp.com/api/public/login";
 
